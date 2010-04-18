@@ -166,12 +166,11 @@ module Sinatra
       end
 
       def call_model_method(model_class, name, options={})
-        method = model_class.method(name)
-        if options.nil? || method.arity == 0
+        if options.nil? || model_class.method(name).arity == 0
           Kernel.warn "warning: calling #{model_class.to_s}##{name} with args, although it doesn't take args" if options
-          method.call
+          model_class.send(name)
         else
-          method.call(options)
+          model_class.send(name, options)
         end
       end
     end
