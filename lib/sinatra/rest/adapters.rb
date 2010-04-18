@@ -12,6 +12,13 @@ module Stone
 end
 
 module DataMapper
+  
+  module Resource
+    def update_attributes(opt)
+      update opt
+    end
+  end
+  
   module Model
     def find_by_id(id)
       get(id)

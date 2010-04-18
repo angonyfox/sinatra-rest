@@ -4,7 +4,7 @@ require 'spec/interop/test'
 require 'rack/test'
 require 'english/inflect'
 require 'haml'
-
+require 'dm-core'
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 require 'sinatra/base'
 require 'sinatra/rest'
