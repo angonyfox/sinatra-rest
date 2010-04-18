@@ -42,7 +42,6 @@ describe 'some use cases' do
 
   it 'should read all persons' do
     get '/people'
-
     el_people = doc(last_response.body).elements.to_a("*/person/id")
     el_people.size.should == 3
     total_models.should == 3
