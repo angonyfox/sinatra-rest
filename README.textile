@@ -1,0 +1,89 @@
+h1. Sinatra-REST
+
+Actually it's a set of templates to introduce RESTful routes in Sinatra. The 
+only thing for you to do is to provide the views. The routes and some 
+url helpers will be provided behind the scenes.
+
+
+h2. Installation
+
+Guess what!
+
+    sudo gem source --add http://gems.github.com
+    sudo gem install blindgaenger-sinatra-rest
+
+
+h2. Usage
+
+Of course you need to require the gem in your Sinatra application:
+
+    require 'rubygems'
+    require 'sinatra'
+    require 'sinatra/rest'
+
+It's very similar to defining routes in Sinatra (@get@, @post@, ...). But this 
+time you don't define the routes by yourself, but use the model's name for 
+convention.
+
+For example, if the model's class is called @Person@ you only need to add this 
+line:
+
+    rest Person
+
+Which will add the following RESTful routes to your application. (Note the 
+pluralization of @Person@ to the @/people/*@ routes.)
+
+* GET    /people
+* GET    /people/new
+* POST   /people
+* GET    /people/:id
+* GET    /people/:id/edit
+* PUT    /people/:id
+* DELETE /people/:id
+
+But the real benefit is, that these *routes define a restful standard behaviour* 
+on your model, *appropriate routing and redirecting* and *named url helpers*. 
+
+For instance, you can imagine the following code to be added for the @/people@ 
+and @/people/:id@ routes.
+
+<pre><code>
+# simply add this line
+
+rest Person, :renderer => :erb
+
+# and this is generated for you
+
+get '/people' do
+  @people = Person.all
+  erb :"people/index", options
+end
+
+put '/people/:id' do
+  @person = Person.find_by_id(params[:id])
+  redirect url_for_people_show(@person), 'person updated'
+end
+
+# further restful routes for Person ...
+</code></pre>
+
+That's only half the truth! The routes are generated dynamically, so all 
+defaults can be overridden (the behaviour, after/before callbacks, used renderer, 
+which routes are added).
+
+For more details and options, please have a look at the pages in the  
+"Sinatra-REST Wiki":http://github.com/blindgaenger/sinatra-rest/wikis on Github.
+
+h2. Links
+
+* "Homepage @ GitHub Pages":http://blindgaenger.github.com/sinatra-rest/
+* "Source Code @ GitHub":http://blindgaenger.github.com/sinatra-rest/
+* "Documentation @ rdoc.info":http://rdoc.info/projects/blindgaenger/sinatra-rest
+* "Continuous Integration @ RunCodeRun":http://runcoderun.com/blindgaenger/sinatra-rest
+* "Gem hosting @ Gemcutter":http://gemcutter.org/gems/sinatra-rest
+
+h2. Contact
+
+You can contact me via mail at blindgaenger at gmail dot com, or leave me a 
+message on my "Github profile":http://github.com/blindgaenger.
+
