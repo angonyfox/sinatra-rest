@@ -28,8 +28,8 @@ Gem::Specification.new do |s|
   ]
 
   s.require_paths = ["lib"]
-  s.add_dependency "sinatra", [">= 0.9.0.5"]
-  s.add_dependency "english", [">= 0.3.1"]
+  s.add_dependency "sinatra", [">= 0.9.1"]
+  s.add_dependency "english", [">= 0.5.0"]
 
   s.has_rdoc = "false"
 end
