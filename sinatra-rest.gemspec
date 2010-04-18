@@ -12,8 +12,9 @@ Gem::Specification.new do |s|
     "Rakefile",
     "README.textile",
     "lib/sinatra/rest.rb",
-    "lib/sinatra/rest/adapters.rb",    
-    "lib/sinatra/rest/rest.yaml",    
+    "lib/sinatra/rest/adapters.rb",
+    "lib/sinatra/rest/rest.yaml",
+    "test/adapters_spec.rb",
     "test/call_order_spec.rb",
     "test/crud_spec.rb",
     "test/helper.rb",
@@ -24,7 +25,11 @@ Gem::Specification.new do |s|
     "test/views/people/edit.haml",
     "test/views/people/index.haml",
     "test/views/people/new.haml",
-    "test/views/people/show.haml"
+    "test/views/people/show.haml",
+    "test/views/words/edit.haml",
+    "test/views/words/index.haml",
+    "test/views/words/new.haml",
+    "test/views/words/show.haml"
   ]
 
   s.require_paths = ["lib"]

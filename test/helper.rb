@@ -3,6 +3,7 @@ require 'spec'
 require 'spec/interop/test'
 require 'rack/test'
 require 'english/inflect'
+require 'haml'
 
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 require 'sinatra/base'
