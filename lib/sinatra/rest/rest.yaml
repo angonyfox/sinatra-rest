@@ -5,7 +5,7 @@
   :control: |-
     @PLURAL = call_model_method(MODEL, :all, mp)
   :render: |-
-    RENDERER :'PLURAL/index', options  
+    @PLURAL.to_json  
 
 :new:
   :verb: GET
@@ -13,7 +13,7 @@
   :control: |-
     @SINGULAR = call_model_method(MODEL, :new, mp)
   :render: |-
-    RENDERER :'PLURAL/new', options
+    @SINGULAR.to_json
 
 :create:
   :verb: POST
@@ -33,7 +33,7 @@
     if @SINGULAR.nil?
       throw :halt, [404, 'SINGULAR not found']
     else
-      RENDERER :'PLURAL/show', options
+      @SINGULAR.to_json
     end
 
 :edit:

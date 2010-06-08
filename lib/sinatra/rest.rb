@@ -136,7 +136,8 @@ module Sinatra
     def controller_template(route)
       t = <<-RUBY
         def PLURAL_NAME(options=params)
-          filter_model_params(options).to_json
+          mp = filter_model_params(options)
+	  CONTROL
         end
       RUBY
       replace_variables(t, route)
