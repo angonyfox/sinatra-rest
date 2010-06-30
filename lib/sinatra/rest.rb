@@ -148,7 +148,7 @@ module Sinatra
     module Helpers
       # for example _method will be removed
       def filter_model_params(params)
-        params.reject {|k, v| k =~ /^_/}
+        params.reject {|k, v| k =~ /^(_|session_token)/ }
       end
     
       def escape_model_id(model)
