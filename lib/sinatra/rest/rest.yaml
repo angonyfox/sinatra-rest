@@ -22,7 +22,11 @@
     @SINGULAR = call_model_method(MODEL, :new, mp)
     @SINGULAR.save
   :render: |-
-    redirect url_for_PLURAL_show(@SINGULAR), 'SINGULAR created'
+    unless @SINGULAR.invalid?
+      redirect url_for_PLURAL_show(@SINGULAR), 'SINGULAR created'
+    else
+      throw :halt, [500, @SINGULAR.errors.full_messages.join("\n")]
+    end
 
 :show:
   :verb: GET
@@ -54,7 +58,11 @@
     if @SINGULAR.nil?
       throw :halt, [404, 'SINGULAR not found']
     else
-      redirect url_for_PLURAL_show(@SINGULAR), 'SINGULAR updated'
+      unless @SINGULAR.invalid?
+        redirect url_for_PLURAL_show(@SINGULAR), 'SINGULAR updated'
+      else
+        throw :halt, [500, @SINGULAR.errors.full_messages.join("\n")]
+      end
     end
 
 :destroy:
