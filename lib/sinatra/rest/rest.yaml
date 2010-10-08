@@ -5,15 +5,20 @@
   :control: |-
     @PLURAL = call_model_method(MODEL, :all, mp)
   :render: |-
-    @PLURAL.to_json  
-
+    if request.xhr?
+      content_type :json
+      @PLURAL.to_json
+    else
+      RENDERER :'PLURAL/index', options  
+    end  
+    
 :new:
   :verb: GET
   :url: /PLURAL/new
   :control: |-
     @SINGULAR = call_model_method(MODEL, :new, mp)
   :render: |-
-    @SINGULAR.to_json
+    RENDERER :'PLURAL/new', options
 
 :create:
   :verb: POST
@@ -37,7 +42,12 @@
     if @SINGULAR.nil?
       throw :halt, [404, 'SINGULAR not found']
     else
-      @SINGULAR.to_json
+      if request.xhr?
+        content_type :json
+        @SINGULAR.to_json
+      else
+        RENDERER :'PLURAL/show', options  
+      end  
     end
 
 :edit:
@@ -72,4 +82,3 @@
     call_model_method(MODEL, :delete, mp[:id])
   :render: |-
     redirect url_for_PLURAL_index, 'SINGULAR destroyed'
-
