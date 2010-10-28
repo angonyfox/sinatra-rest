@@ -3,13 +3,13 @@
   :verb: GET
   :url: /PLURAL
   :control: |-
-    @PLURAL = call_model_method(MODEL, :all, mp)
+    @PLURAL = call_model_method(MODEL, :where, mp)
   :render: |-
     if request.xhr?
       content_type :json
-      @PLURAL.to_json
+      @PLURAL.as_json
     else
-      RENDERER :'PLURAL/index', options  
+      RENDERER :'PLURAL/index', options
     end  
     
 :new:

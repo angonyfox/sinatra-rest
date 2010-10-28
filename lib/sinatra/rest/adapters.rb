@@ -31,16 +31,23 @@ module DataMapper
   end
 end
 
-# find(id) throws exceptions...
+# find throws exceptions...
 # find_by_id returns nil
-# module ActiveRecord
-#   class Base
-#     class << self
-#       def find_by_id(id)
-#         find(id)
-#       end
-#     end
-#   end
-# end
+# 
+# find_by_id should already exist but alas it doesn't 
+# because templates are eval'd before that method is.. (i think)
+module ActiveRecord
+  class Base
+    class << self
+      def find_by_id(id)
+        begin
+          find(id)
+        rescue Exception 
+          nil
+        end
+      end
+    end
+  end
+end
 
 
