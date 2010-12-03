@@ -110,7 +110,7 @@ module Sinatra
     
     def helpers_template(route)
       t = <<-RUBY
-        def url_for_PLURAL_NAME(params)
+        def url_for_PLURAL_NAME(model = nil)
           "URL"
         end
       RUBY

@@ -7,7 +7,7 @@
   :render: |-
     if request.xhr?
       content_type :json
-      @PLURAL.as_json
+      @PLURAL.as_json.to_json
     else
       RENDERER :'PLURAL/index', options
     end  
@@ -44,7 +44,7 @@
     else
       if request.xhr?
         content_type :json
-        @SINGULAR.to_json
+        @SINGULAR.as_json.to_json
       else
         RENDERER :'PLURAL/show', options  
       end  
