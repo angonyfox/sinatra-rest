@@ -1,11 +1,11 @@
-Gem::Specification.new do |s|
+Gem::Specification.new do |s| 
   s.platform = Gem::Platform::RUBY
-  s.name = "dominiquebrezinski-sinatra-rest"
-  s.version = "0.3.8"
+  s.name = "mikeycgto-sinatra-rest"
+  s.version = "0.4.0"
   s.date = "2010-06-08"  
-  s.authors = ["blindgaenger", "kyledrake", "dominiquebrezinski"]
+  s.authors = ["blindgaenger", "kyledrake", "dominiquebrezinski", "mikeycgto"]
   s.email = "blindgaenger@gmail.com"
-  s.homepage = "http://github.com/dominiquebrezinski/sinatra-rest"  
+  s.homepage = "http://github.com/mikeycgto/sinatra-rest"  
   s.summary = "Generates RESTful routes for the models of a Sinatra application (ActiveRecord, DataMapper, Stone)"
   
   s.files = [
