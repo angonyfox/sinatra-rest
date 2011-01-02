@@ -1,7 +1,7 @@
 Gem::Specification.new do |s| 
   s.platform = Gem::Platform::RUBY
   s.name = "mikeycgto-sinatra-rest"
-  s.version = "0.4.1"
+  s.version = "0.4.2"
   s.date = "2010-06-08"  
   s.authors = ["blindgaenger", "kyledrake", "dominiquebrezinski", "mikeycgto"]
   s.email = "blindgaenger@gmail.com"
