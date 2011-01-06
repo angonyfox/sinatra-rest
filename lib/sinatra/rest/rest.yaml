@@ -27,7 +27,7 @@
     @SINGULAR = call_model_method(MODEL, :new, mp)
     @SINGULAR.save
   :render: |-
-    unless @SINGULAR.invalid?
+    if @SINGULAR.errors.empty?
       redirect url_for_PLURAL_show(@SINGULAR), 'SINGULAR created'
     else
       if request.xhr?
@@ -72,7 +72,7 @@
     if @SINGULAR.nil?
       throw :halt, [404, 'SINGULAR not found']
     else
-      unless @SINGULAR.invalid?
+      if @SINGULAR.errors.empty?
         redirect url_for_PLURAL_show(@SINGULAR), 'SINGULAR updated'
       else
         if request.xhr?
