@@ -5,7 +5,7 @@
   :control: |-
     @PLURAL = call_model_method(MODEL, :where, mp)
   :render: |-
-    if request.xhr?
+    if request.xhr? || request.accept.include?('application/json')
       content_type :json
       @PLURAL.as_json.to_json
     else
@@ -30,7 +30,7 @@
     if @SINGULAR.errors.empty?
       redirect url_for_PLURAL_show(@SINGULAR), 'SINGULAR created'
     else
-      if request.xhr?
+      if request.xhr? || request.accept.include?('application/json')
         throw :halt, [500, @SINGULAR.errors.full_messages.join("\n")]
       else
         RENDERER :'PLURAL/new', options  
@@ -46,7 +46,7 @@
     if @SINGULAR.nil?
       throw :halt, [404, 'SINGULAR not found']
     else
-      if request.xhr?
+      if request.xhr? || request.accept.include?('application/json')
         content_type :json
         @SINGULAR.as_json.to_json
       else
@@ -75,7 +75,7 @@
       if @SINGULAR.errors.empty?
         redirect url_for_PLURAL_show(@SINGULAR), 'SINGULAR updated'
       else
-        if request.xhr?
+        if request.xhr? || request.accept.include?('application/json')
           throw :halt, [500, @SINGULAR.errors.full_messages.join("\n")]
         else
           RENDERER :'PLURAL/edit', options
