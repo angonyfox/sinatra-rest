@@ -25,9 +25,11 @@ describe 'with datamappper model' do
   it 'should create record and redirect to show' do
     post '/words', {:name => 'paleontologist'}
     word = Word.first(:name => 'paleontologist')
-    word.should_not be_nil    
+    word.should_not be_nil
+    uri = URI.parse(last_response.headers['Location'])
     last_response.status.should == 302
-    last_response.headers['Location'].should == "/words/#{word.id}"
+#    last_response.headers['Location'].should == "/words/#{word.id}"
+    uri.path.should == "/words/#{word.id}"
   end
 
   it 'should load show' do
@@ -46,8 +48,10 @@ describe 'with datamappper model' do
     put "/words/#{@existing_word.id}", {:name => 'changed'}
     changed_word = Word.first(:name => 'changed')
     changed_word.should_not be_nil
+    uri = URI.parse(last_response.headers['Location'])
     last_response.status.should == 302
-    last_response.headers['Location'].should == "/words/#{changed_word.id}"
+#    last_response.headers['Location'].should == "/words/#{changed_word.id}"
+    uri.path.should == "/words/#{changed_word.id}"
     changed_word.update :name => 'existing'
   end
 
@@ -55,8 +59,10 @@ describe 'with datamappper model' do
     word = Word.create :name => 'delete_me'
     delete "/words/#{word.id}"
     Word.get(:name => 'delete_me').should be_nil
+    uri = URI.parse(last_response.headers['Location'])
     last_response.status.should == 302
-    last_response.headers['Location'].should == '/words'
+#    last_response.headers['Location'].should == '/words'
+    uri.path.should == '/words'
   end
 
 end

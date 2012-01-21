@@ -4,7 +4,7 @@ require 'spec/interop/test'
 require 'rack/test'
 require 'english/inflect'
 require 'haml'
-require 'dm-core'
+require 'data_mapper'
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 require 'sinatra/base'
 require 'sinatra/rest'
@@ -26,7 +26,7 @@ def mock_app(&block)
   base.register Sinatra::REST
   base.helpers Sinatra::REST::Helpers
   @app = Sinatra.new(base) do
-    set :views, File.dirname(__FILE__) + '/views'   
+    set :views, File.dirname(__FILE__) + '/views'
     not_found do
       'route not found'
     end
@@ -138,6 +138,10 @@ class Person
   def self.all(criteria={})
     #puts 'all'
     return @@people
+  end
+
+  def self.where(criteria={})
+    all criteria
   end
 
   def self.find_by_id(id)
