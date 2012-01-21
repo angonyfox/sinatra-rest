@@ -1,4 +1,4 @@
---- 
+---
 :index:
   :verb: GET
   :url: /PLURAL
@@ -7,11 +7,11 @@
   :render: |-
     if request.xhr? || request.accept.include?('application/json')
       content_type :json
-      @PLURAL.as_json.to_json
+      @PLURAL.to_json
     else
       RENDERER :'PLURAL/index', options
-    end  
-    
+    end
+
 :new:
   :verb: GET
   :url: /PLURAL/new
@@ -33,7 +33,7 @@
       if request.xhr? || request.accept.include?('application/json')
         throw :halt, [500, @SINGULAR.errors.full_messages.join("\n")]
       else
-        RENDERER :'PLURAL/new', options  
+        RENDERER :'PLURAL/new', options
       end
     end
 
@@ -48,10 +48,10 @@
     else
       if request.xhr? || request.accept.include?('application/json')
         content_type :json
-        @SINGULAR.as_json.to_json
+        @SINGULAR.to_json
       else
-        RENDERER :'PLURAL/show', options  
-      end  
+        RENDERER :'PLURAL/show', options
+      end
     end
 
 :edit:
