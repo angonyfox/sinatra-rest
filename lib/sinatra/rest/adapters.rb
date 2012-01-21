@@ -3,7 +3,7 @@ module Stone
     def find_by_id(id)
       get(id)
     end
-    
+
     def delete(id)
       model = self.find_by_id(id)
       model.destroy if model
@@ -23,18 +23,22 @@ module DataMapper
     def find_by_id(id)
       get(id)
     end
-    
+
     def delete(id)
       model = self.find_by_id(id)
       model.destroy if model
+    end
+
+    def where(opt)
+      all(opt)
     end
   end
 end
 
 # find throws exceptions...
 # find_by_id returns nil
-# 
-# find_by_id should already exist but alas it doesn't 
+#
+# find_by_id should already exist but alas it doesn't
 # because templates are eval'd before that method is.. (i think)
 module ActiveRecord
   class Base
@@ -42,7 +46,7 @@ module ActiveRecord
       def find_by_id(id)
         begin
           find(id)
-        rescue Exception 
+        rescue Exception
           nil
         end
       end

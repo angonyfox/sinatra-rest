@@ -18,7 +18,7 @@ module Sinatra
 
       # register model specific helpers
       helpers generate_helpers
-      
+
       # create an own module, to override the template with custom methods
       # this way, you can still use #super# in the overridden methods
       controller = generate_controller
@@ -29,7 +29,7 @@ module Sinatra
         controller = custom.module
       end
       helpers controller
-      
+
       # register routes as DSL extension
       instance_eval generate_routes
     end
@@ -39,8 +39,8 @@ module Sinatra
     ROUTES = {
       :all       => [:index, :new, :create, :show, :edit, :update, :destroy],
       :readable  => [:index, :show],
-      :writeable => [:index, :show, :create, :update, :destroy],      
-      :editable  => [:index, :show, :create, :update, :destroy, :new, :edit],                        
+      :writeable => [:index, :show, :create, :update, :destroy],
+      :editable  => [:index, :show, :create, :update, :destroy, :new, :edit],
     }
 
     def parse_args(model_class, options)
@@ -48,13 +48,13 @@ module Sinatra
       @renderer = (options.delete(:renderer) || :haml).to_s
       @route_flags = parse_routes(options.delete(:routes) || :all)
     end
-    
+
     def parse_routes(routes)
       routes = [*routes].map {|route| ROUTES[route] || route}.flatten.uniq
       # keep the order of :all routes
       ROUTES[:all].select{|route| routes.include? route}
     end
-    
+
     def read_config(full_file, default_filename)
       file = File.read( full_file || File.join(File.dirname(__FILE__), default_filename))
       @config = YAML.load file
@@ -75,25 +75,25 @@ module Sinatra
         t.gsub!('VERB', @config[route][:verb].downcase)
         t.gsub!('URL', @config[route][:url])
         t.gsub!('CONTROL', @config[route][:control])
-        t.gsub!('RENDER', @config[route][:render]) 
-      end    
+        t.gsub!('RENDER', @config[route][:render])
+      end
       t.gsub!(/PLURAL/, @plural)
       t.gsub!(/SINGULAR/, @singular)
       t.gsub!(/MODEL/, @model)
       t.gsub!(/RENDERER/, @renderer)
-      t    
+      t
     end
 
     def generate_routes
       @route_flags.map{|r| route_template(r)}.join("\n\n")
     end
-    
+
     def route_template(route)
       t = <<-RUBY
         VERB 'URL' do
           PLURAL_before :NAME
           PLURAL_NAME
-          PLURAL_after :NAME   
+          PLURAL_after :NAME
           RENDER
         end
       RUBY
@@ -107,7 +107,7 @@ module Sinatra
       }
       m
     end
-    
+
     def helpers_template(route)
       t = <<-RUBY
         def url_for_PLURAL_NAME(model = nil)
@@ -132,7 +132,7 @@ module Sinatra
       }
       m
     end
-    
+
     def controller_template(route)
       t = <<-RUBY
         def PLURAL_NAME(options=params)
@@ -142,7 +142,7 @@ module Sinatra
       RUBY
       replace_variables(t, route)
     end
-    
+
     #
     # model unspecific helpers, will be included once
     module Helpers
@@ -150,7 +150,7 @@ module Sinatra
       def filter_model_params(params)
         params.reject {|k, v| k =~ /^(_|session_token)/ }
       end
-    
+
       def escape_model_id(model)
         if model.nil?
           raise 'can not generate url for nil'
@@ -186,16 +186,16 @@ module Sinatra
       end
 
       def before(options={}, &block)  prefix :before,  &block; end
-      def after(options={}, &block)   prefix :after,   &block; end      
+      def after(options={}, &block)   prefix :after,   &block; end
       def index(options={}, &block)   prefix :index,   &block; end
       def new(options={}, &block)     prefix :new,     &block; end
       def create(options={}, &block)  prefix :create,  &block; end
       def show(options={}, &block)    prefix :show,    &block; end
       def edit(options={}, &block)    prefix :edit,    &block; end
       def update(options={}, &block)  prefix :update,  &block; end
-      def destroy(options={}, &block) prefix :destroy, &block; end                        
+      def destroy(options={}, &block) prefix :destroy, &block; end
 
-    private 
+    private
       def prefix(name, &block)
         @module.send :define_method, "#{@prefix}_#{name}", &block if block_given?
       end
